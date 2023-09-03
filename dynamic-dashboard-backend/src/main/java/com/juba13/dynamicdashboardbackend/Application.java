@@ -80,5 +80,28 @@ public class Application extends SpringBootServletInitializer implements WebMvcC
                 .build();
     }
 
-    
+    @Autowired
+    private AuthInterceptor authInterceptor;
+
+    /**
+     * Configures custom interceptor for authentication.
+     *
+     * @param registry The InterceptorRegistry to configure.
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(authInterceptor)
+                .addPathPatterns(AppConfig.FILTERRING_PATH_PATTERNS)
+                .excludePathPatterns(Arrays.asList(AppConfig.NONFILTERRING_PATH_PATTERNS));
+    }
+
+    /**
+     * Configures Cross-Origin Resource Sharing (CORS) settings.
+     *
+     * @param registry The CorsRegistry to configure.
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedMethods("POST", "OPTIONS");
+    }
 }
