@@ -1,8 +1,8 @@
-package com.juba13.dynamicdashboardbackend;
+package com.juba13.dyboard;
 /**
  * Configuration class for the Dashboard application.
  */
-public class AppConfig {
+public class Config {
     // Base context path for the application
     public static final String CONTEXT = "/dynamic-dashboard/";
 
@@ -24,7 +24,7 @@ public class AppConfig {
     public static String[] FILTERING_PATH_PATTERNS = new String[]{"/**"};
 
     // Private key for JWT authentication
-    public static final String APPLICATION_JWT_PRIVATE_KEY = "sjsjfdsjfidsjfiamsadsadisadsadosadsakdsad";
+    public static final String JWT_PRIVATE_KEY = "sjsjfdsjfidsjfiamsadsadisadsadosadsakdsad";
 
     /**
      * Inner class containing keys for session attributes.
