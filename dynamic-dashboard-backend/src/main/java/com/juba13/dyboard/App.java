@@ -1,5 +1,6 @@
-package com.juba13.dynamicdashboardbackend;
+package com.juba13.dyboard;
 
+import com.juba13.dyboard.interceptor.AuthInterceptor;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @EnableSwagger2
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer implements WebMvcConfigurer {
+public class App extends SpringBootServletInitializer implements WebMvcConfigurer {
 
     /**
      * Entry point for the Dashboard application.
@@ -32,11 +33,11 @@ public class Application extends SpringBootServletInitializer implements WebMvcC
      */
     public static void main(String[] args) {
         // Set system properties for configuration
-        System.setProperty("server.servlet.context-path", AppConfig.CONTEXT_PATH);
-        System.setProperty("server.port", AppConfig.SERVER_PORT);
+        System.setProperty("server.servlet.context-path", Config.CONTEXT);
+        System.setProperty("server.port", Config.PORT);
 
         // Run the Spring Boot application
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(App.class, args);
     }
 
     /**
@@ -48,7 +49,7 @@ public class Application extends SpringBootServletInitializer implements WebMvcC
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         // Configure the SpringApplicationBuilder
-        return application.sources(Application.class);
+        return application.sources(App.class);
     }
 
     /**
@@ -91,8 +92,8 @@ public class Application extends SpringBootServletInitializer implements WebMvcC
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authInterceptor)
-                .addPathPatterns(AppConfig.FILTERRING_PATH_PATTERNS)
-                .excludePathPatterns(Arrays.asList(AppConfig.NONFILTERRING_PATH_PATTERNS));
+                .addPathPatterns(Config.FILTERING_PATH_PATTERNS)
+                .excludePathPatterns(Arrays.asList(Config.NON_FILTERING_PATH_PATTERNS));
     }
 
     /**
